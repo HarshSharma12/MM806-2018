@@ -12,12 +12,20 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private int score;
 
+    Animator anim;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         score = 0;
         SetCountText();
         winText.text = "";
+    }
+
+    void Awake()
+    {
+        // Set up the reference.
+        anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -28,6 +36,16 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
         rb.AddForce(movement * speed);
+        if (score >= 60 && IsInGoal(rb.position))
+        {
+            SetWinText();
+        }
+
+        if (IsOut(rb.position))
+        {
+            //SetLoseText();
+            anim.SetTrigger("GameOver");
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -44,14 +62,40 @@ public class PlayerController : MonoBehaviour
             score+=2;
             SetCountText();
         }
+        else if (other.gameObject.CompareTag("SpecialPickUp"))
+        {
+            other.gameObject.SetActive(false);
+            score += 5;
+            SetCountText();
+        }
     }
 
     void SetCountText()
     {
         countText.text = "Current Score: " + score.ToString();
-        if (score >= 10)
+    }
+    void SetWinText()
+    {
+        winText.text = "You Win!";
+    }
+
+    void SetLoseText()
+    {
+        winText.text = "Game Over!";
+    }
+
+    bool IsInGoal(Vector3 localPos)
+    {
+        print(localPos);
+        if (localPos.y <= -10.5 && localPos.y >= -14.5 && localPos.x <= 91 && localPos.x >= 84 && localPos.z <= -83 && localPos.z >= -90)
         {
-            winText.text = "You Win!";
+            return true;
         }
+        return false;
+    }
+
+    bool IsOut(Vector3 localPos)
+    {
+        return (localPos.y < -16);
     }
 }

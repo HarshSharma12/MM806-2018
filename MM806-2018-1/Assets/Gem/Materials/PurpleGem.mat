@@ -41,7 +41,7 @@ Material:
     - _IndexOfRefraction: 2.14
     - _ReflectionStrength: 1
     m_Colors:
-    - _Color: {r: 0.17973383, g: 0.12922749, b: 0.8301887, a: 1}
+    - _Color: {r: 0.21960784, g: 0.21960784, b: 1, a: 1}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6

@@ -8,6 +8,10 @@ public class CameraController : MonoBehaviour
 
     private Vector3 offset;
 
+    public float speed = 3.5f;
+    private float X;
+    private float Y;
+
     void Start()
     {
         offset = transform.position - player.transform.position;
@@ -16,6 +20,12 @@ public class CameraController : MonoBehaviour
     void LateUpdate()
     {
         transform.position = player.transform.position + offset;
-        
+        if (Input.GetMouseButton(0))
+        {
+            transform.Rotate(new Vector3(Input.GetAxis("Mouse Y") * speed, -Input.GetAxis("Mouse X") * speed, 0));
+            X = transform.rotation.eulerAngles.x;
+            Y = transform.rotation.eulerAngles.y;
+            transform.rotation = Quaternion.Euler(X, Y, 0);
+        }
     }
 }
