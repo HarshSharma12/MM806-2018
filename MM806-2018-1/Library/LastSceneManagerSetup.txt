@@ -3,7 +3,7 @@ sceneSetups:
   isLoaded: 0
   isActive: 0
 - path: Assets/Scenes/HelpScreen.unity
-  isLoaded: 1
+  isLoaded: 0
   isActive: 0
 - path: Assets/Scenes/MiniGame.unity
   isLoaded: 1

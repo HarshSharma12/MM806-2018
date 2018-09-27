@@ -8,6 +8,12 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public Text countText;
     public Text winText;
+    public AudioSource source;
+
+    public AudioClip sound1;
+    public AudioClip sound2;
+    public AudioClip sound3;
+    public AudioClip winSound;
 
     private Rigidbody rb;
     private int score;
@@ -29,8 +35,13 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
         rb.AddForce(movement * speed);
-        if (score >= 50 && IsInGoal(rb.position))
+        if (score >= 10 && IsInGoal(rb.position))
         {
+            if (source.clip != winSound)
+            {
+                source.clip = winSound;
+                source.Play(0);
+            }
             SetWinText();
         }
 
@@ -44,18 +55,24 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             score++;
             SetCountText();
+            source.clip = sound1;
+            source.Play(0);
         }
         else if (other.gameObject.CompareTag("HighValuePickUp"))
         {
             other.gameObject.SetActive(false);
             score+=2;
             SetCountText();
+            source.clip = sound2;
+            source.Play(0);
         }
         else if (other.gameObject.CompareTag("SpecialPickUp"))
         {
             other.gameObject.SetActive(false);
             score += 5;
             SetCountText();
+            source.clip = sound3;
+            source.Play(0);
         }
     }
 
