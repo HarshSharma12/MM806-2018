@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private int score;
 
-    Animator anim;
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -22,11 +20,6 @@ public class PlayerController : MonoBehaviour
         winText.text = "";
     }
 
-    void Awake()
-    {
-        // Set up the reference.
-        anim = GetComponent<Animator>();
-    }
 
     void FixedUpdate()
     {
@@ -36,16 +29,12 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
         rb.AddForce(movement * speed);
-        if (score >= 60 && IsInGoal(rb.position))
+        if (score >= 50 && IsInGoal(rb.position))
         {
             SetWinText();
         }
 
-        if (IsOut(rb.position))
-        {
-            //SetLoseText();
-            anim.SetTrigger("GameOver");
-        }
+        
     }
 
     void OnTriggerEnter(Collider other)
@@ -79,11 +68,7 @@ public class PlayerController : MonoBehaviour
         winText.text = "You Win!";
     }
 
-    void SetLoseText()
-    {
-        winText.text = "Game Over!";
-    }
-
+    
     bool IsInGoal(Vector3 localPos)
     {
         print(localPos);
@@ -94,8 +79,5 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    bool IsOut(Vector3 localPos)
-    {
-        return (localPos.y < -16);
-    }
+    
 }
