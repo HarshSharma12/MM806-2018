@@ -12,6 +12,7 @@ sysinfo.txt
 *.apk
 *.unitypackage
 *.log
+*.bin
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
